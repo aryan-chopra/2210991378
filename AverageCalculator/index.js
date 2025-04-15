@@ -2,16 +2,25 @@ import express from "express"
 
 const App = express()
 
-App.get('/numbers/:numberId', (req, res) => {
+let prevWindow = []
+
+App.get('/numbers/:numberId', async (req, res) => {
+    const windowSize = 10
+    let response
+
+    // Get numbers from somewhere
+
     if (req.params.numberId === 'p') {
-        res.send("Prime")
+        response = await fetch("http://20.244.56.144/evaluation-service/primes")
     } else if (req.params.numberId === 'f') {
-        res.send("Fibonacci")
+        response = await fetch("http://20.244.56.144/evaluation-service/fibo")
     } else if (req.params.numberId === 'e') {
-        res.send("Even")
+        response = await fetch("http://20.244.56.144/evaluation-service/even")
     } else if (req.params.numberId === 'r') {
-        res.send("Random")
+        response = await fetch("http://20.244.56.144/evaluation-service/rand")
     }
+
+    res.send(response)
 })
 
 App.listen("8080")
