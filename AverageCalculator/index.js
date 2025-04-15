@@ -2,7 +2,7 @@ import express from "express"
 
 const App = express()
 
-App.get('/numbers/numberId', (req, res) => {
+App.get('/numbers/:numberId', (req, res) => {
     res.send(req.params.numberId)
 })
 
